@@ -13,7 +13,7 @@ Dependencies:
 
 included files:
 
-  A .exe verison of the game
+  A .exe verison of the game contained inside a zip file along with all its dependencies
   
   The python file for flappy bird
   
