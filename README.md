@@ -7,9 +7,7 @@ Controls:
 
 space to jump
 
-
-
-Dependencies:
+DEPENDENCIES:
 
   Pygame version 1.9.6
   
@@ -19,7 +17,7 @@ Dependencies:
   
     pip install pygame
 
-included files:
+INCLUDED FILES:
 
   A .exe verison of the game contained inside a zip file along with all its dependencies
   
