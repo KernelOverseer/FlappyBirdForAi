@@ -1,6 +1,12 @@
 # Flappy-bird
 a flappy bird game made in pygame
 
+Controls:
+
++/- to change fps
+
+space to jump
+
 Dependencies:
 
   Pygame version 1.9.6
