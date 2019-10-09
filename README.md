@@ -10,3 +10,11 @@ Dependencies:
   To install the latest Pygame:
   
     pip install pygame
+
+included files:
+
+  A .exe verison of the game
+  
+  The python file for flappy bird
+  
+  The spritesheet for the game 
