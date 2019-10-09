@@ -7,7 +7,7 @@ Controls:
 
 space to jump
 
-#Dependencies:
+Dependencies:
 
   Pygame version 1.9.6
   
