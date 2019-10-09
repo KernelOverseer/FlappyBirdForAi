@@ -1,4 +1,4 @@
-# Flappy-bird
+## Flappy-bird
 a flappy bird game made in pygame
 
 Controls:
@@ -7,7 +7,7 @@ Controls:
 
 space to jump
 
-Dependencies:
+#Dependencies:
 
   Pygame version 1.9.6
   
