@@ -1,4 +1,4 @@
-## Flappy-bird
+# Flappy-bird
 a flappy bird game made in pygame
 
 Controls:
