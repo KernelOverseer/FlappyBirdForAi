@@ -2,6 +2,8 @@ import random
 import pygame
 import sys
 
+speed = 3
+pipe_spawn_delay = 100
 
 class BirdBrain:
     def __init__(self, maingame):
@@ -16,8 +18,9 @@ class BirdBrain:
         closest_wall = 1000
         closest_wall_y = 0
         for i in self.game.walls:
-            closest_wall_y = max(i.pos.y, closest_wall_y)
-            closest_wall = min(i.pos.x, closest_wall)
+            if i.pos.x > bird_x - 50:
+                closest_wall = min(i.pos.x, closest_wall)
+                closest_wall_y = max(i.pos.y, closest_wall_y)
         self.dist_x = closest_wall - bird_x
         self.dist_y = closest_wall_y - bird_y
 
@@ -70,9 +73,10 @@ class Game:
         self.playSurface.fill(self.Black)
         while not self.stop:
             self.Clock.tick(self.fps)
-            if pygame.sprite.collide_mask(self.player, self.walls_lower) or pygame.sprite.collide_mask(self.player,
-                                                                                                       self.walls_upper):
-                self.player.death()
+            for wall in self.walls:
+                if pygame.sprite.collide_mask(self.player, wall) or\
+                        pygame.sprite.collide_mask(self.player, wall):
+                    self.player.death()
             if self.player.brain.do_jump():
                 self.player.jump()
             for event in pygame.event.get():
@@ -87,7 +91,7 @@ class Game:
                     if event.key == pygame.K_MINUS:
                         self.fps -= 10
             self.all_sprites.update()
-            if self.update_count != 280:
+            if self.update_count != pipe_spawn_delay:
                 self.update_count += 1
             else:
                 self.update_count = 0
@@ -124,7 +128,7 @@ class Floor(pygame.sprite.Sprite):
         self.image.blit(pygame.transform.scale(self.ground, (self.game.width * 2, 56 * 2)), (0, 0))
         self.pos = self.vec(self.rel_x, self.game.height)
         self.rect.midbottom = self.pos
-        self.x -= 1.5
+        self.x -= speed
 
 
 class Bird(pygame.sprite.Sprite):
@@ -196,7 +200,7 @@ class WallsBasic(pygame.sprite.Sprite):
         self.pipe.blit(self.game.SpriteSheeet, (0, 0), self.area)
         self.pipe.set_colorkey((255, 255, 255))
         self.image.blit(pygame.transform.scale(self.pipe, (26 * 3, 160 * 3)), (0, 0))
-        self.pos.x -= 1.5
+        self.pos.x -= speed
 
 class walls_lower(WallsBasic):
     def __init__(self, game, y_level):
