@@ -3,6 +3,30 @@ import pygame
 import sys
 
 
+class BirdBrain:
+    def __init__(self, maingame):
+        self.dist_x = 0
+        self.dist_y = 0
+        self.game = maingame
+        self.i = 0
+
+    def update_info(self):
+        bird_x = self.game.player.pos.x
+        bird_y = self.game.player.pos.y
+        closest_wall = 1000
+        closest_wall_y = 0
+        for i in self.game.walls:
+            closest_wall_y = max(i.pos.y, closest_wall_y)
+            closest_wall = min(i.pos.x, closest_wall)
+        self.dist_x = closest_wall - bird_x
+        self.dist_y = closest_wall_y - bird_y
+
+    def do_jump(self):
+        self.update_info()
+        if self.dist_y < 0:
+            return True
+        return False
+
 class Game:
     def __init__(self):
         self.fps = 60
@@ -49,6 +73,8 @@ class Game:
             if pygame.sprite.collide_mask(self.player, self.walls_lower) or pygame.sprite.collide_mask(self.player,
                                                                                                        self.walls_upper):
                 self.player.death()
+            if self.player.brain.do_jump():
+                self.player.jump()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.stop = True
@@ -117,6 +143,7 @@ class Bird(pygame.sprite.Sprite):
         self.foo = 1
         self.foo2 = 0
         self.angle = 0
+        self.brain = BirdBrain(game)
 
     def jump(self):
         self.vel.y = -5
